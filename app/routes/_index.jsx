@@ -1,11 +1,10 @@
 import { db } from "~/utils/db.server";
-import { Link } from "@remix-run/react";
-// import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-// import ResponsiveAppBar from "./components/Navbar";
-import { json } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
+import { json, redirect } from "@remix-run/node";
+import { useLoaderData, Link } from "@remix-run/react";
 import { useState } from 'react'
+
+// MUI components
+import Button from '@mui/material/Button';
 
 export const meta = () => {
 	return [
@@ -14,15 +13,28 @@ export const meta = () => {
 	];
 };
 
+// Get the cities from the db
 export const loader = async () => {
 	return json({
 		cities: await db.city.findMany()
 	})
 };
 
-// To do 
-// Save the user's choice of city to a db somewhere
-// Render the contents of the db on the page
+// Update the db with the user's input
+export const action = async ({ request }) => {
+	const form = await request.formData();
+	const city = form.get('city');
+
+	// We won't need form validation like this. We might need something else, however. 
+	// if (typeof city !== "string" || city === "") {
+	//     redirect('/new-quote')
+	//     throw new Error(`Form not submitted correctly.`);
+	// }
+	// const fields = { by, quote };
+
+	await db.city.create({ data: city });
+	// return redirect('/');
+}
 
 export default function Index() {
 	const { cities } = useLoaderData();
@@ -79,6 +91,23 @@ export default function Index() {
 					)
 				})
 			}
+
+			{/* <form method="post">
+				<label>
+					Quote Master (Quote By):
+					<input
+						type="text"
+						className={inputClassName}
+						name="by"
+						required
+					/>
+				</label>
+				<label>
+					Quote Content:
+					<textarea required className={`${inputClassName} resize-none `} id="" cols={30} rows={10} name="quote"></textarea>
+				</label>
+				<button type="submit">Add</button>
+			</form> */}
 		</div>
 	);
 }

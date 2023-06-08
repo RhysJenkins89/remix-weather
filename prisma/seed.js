@@ -19,4 +19,4 @@ function getCities() {
     ]
 }
 
-// Note that we don't actually want to do this. The database should start empty. The user will add cities on the frontend.
+// Note that we don't actually want to seed the database. The database should start empty. The user will add cities on the frontend.
