@@ -7,6 +7,8 @@ The classic weather app built with the Remix framework. There will be a lot of G
 * Add basic routing
 * Add a stylesheet
 * Bring in the MUI framework
+    * Sort fonts
+    * Sort icons 
 * Fetch weather data from somewhere somehow
 
 ## Notes 

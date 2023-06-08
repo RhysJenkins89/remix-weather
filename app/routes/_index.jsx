@@ -1,4 +1,7 @@
 import { Link } from "@remix-run/react";
+// import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+// import ResponsiveAppBar from "./components/Navbar";
 
 export const meta = () => {
 	return [
@@ -10,8 +13,14 @@ export const meta = () => {
 export default function Index() {
 	return (
 		<div>
-			<h1>Welcome to Remix</h1>
-			<Link to='/login'>Login page</Link>
+			{/* <ResponsiveAppBar /> */}
+			{/* <Typography variant="h4" component="h1" gutterBottom>
+				Welcome to Remix!
+			</Typography> */}
+			<h1>Welcome to Remix!</h1>
+			<Link to='/login'> 
+				<Button variant="contained">Login page</Button>
+			</Link>
 		</div>
 	);
 }

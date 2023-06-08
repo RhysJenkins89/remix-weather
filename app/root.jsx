@@ -1,3 +1,5 @@
+import ResponsiveAppBar from "./components/Navbar";
+
 import { cssBundleHref } from "@remix-run/css-bundle";
 
 import {
@@ -23,6 +25,7 @@ export default function App() {
 				<Links />
 			</head>
 			<body>
+				<ResponsiveAppBar />
 				<Outlet />
 				<ScrollRestoration />
 				<Scripts />
