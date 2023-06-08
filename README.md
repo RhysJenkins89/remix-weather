@@ -5,6 +5,8 @@ The classic weather app built with the Remix framework. There will be a lot of G
 ## To do
 
 * Save the user's city choices
+* Set the max number of cities to five
+* Allow the user to delete cities
 * Add a stylesheet
 * Bring in the MUI framework
     * Sort fonts

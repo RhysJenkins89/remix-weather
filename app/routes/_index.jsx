@@ -1,3 +1,4 @@
+import { db } from "~/utils/db.server";
 import { Link } from "@remix-run/react";
 // import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
@@ -14,14 +15,17 @@ export const meta = () => {
 };
 
 export const loader = async () => {
-	const response = await fetch("http://universities.hipolabs.com/search?country=United+Kingdom");
-	const universities = await response.json();
-	// Return the data as JSON
-	return json({ universities });
+	return json({
+		cities: await db.city.findMany()
+	})
 };
 
+// To do 
+// Save the user's choice of city to a db somewhere
+// Render the contents of the db on the page
+
 export default function Index() {
-	const { universities } = useLoaderData();
+	const { cities } = useLoaderData();
 
 	// React data fetching
 	const [text, setText] = useState('')
@@ -63,8 +67,17 @@ export default function Index() {
 							// It's bad practice to use the array index as the key, but it'll do for now.
 						)
 					})
-				:
-				null
+					:
+					null
+			}
+			{
+				cities.map((city) => {
+					return (
+						<div key={city.id}>
+							<p>{city.name}</p>
+						</div>
+					)
+				})
 			}
 		</div>
 	);
