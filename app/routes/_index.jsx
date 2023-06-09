@@ -21,15 +21,14 @@ export const loader = async () => {
 };
 
 // Update the db with the user's input
-export const action = async (formData) => {
-	await db.city.create({ data: formData });
-	// Do something else here
+export const action = async ({request}) => {
+	const form = await request.formData();
+    const city = form.get('name');
+	await db.city.create({ data: {name: city} });
+	return null
 }
 
 export default function Index() {
-	const { cities } = useLoaderData();
-	const submit = useSubmit()
-
 	// Standard React data fetching
 	const [text, setText] = useState('')
 	const [userSearch, setUserSearch] = useState('')
@@ -46,19 +45,17 @@ export default function Index() {
 		}
 	}
 
+	const { cities } = useLoaderData();
+	const submit = useSubmit()
+	
 	// Call the submit function here
 	const handleClick = async (event) => {
 		const city = event.currentTarget.getAttribute('data-city')
-		console.log('City form data:', city)
-		console.log(typeof city)
-
-		submit(null, {
-			action: "/logout",
+		let formData = new FormData();
+		formData.append("name", city);
+		submit(formData, {
 			method: "post",
 		});
-
-		// same as
-		// <Form action="/logout" method="post" />;
 	}
 
 	return (
@@ -74,10 +71,7 @@ export default function Index() {
 				userSearch.results ?
 					userSearch.results.map((item, index) => {
 						return (
-							<form onClick={handleClick} key={index} data-city={item.name}>
-								<p>{item.name}</p>
-							</form>
-							// It's bad practice to use the array index as the key, but it'll do for now.
+							<p key={index} onClick={handleClick} data-city={item.name}>{item.name}</p>
 						)
 					})
 					:
