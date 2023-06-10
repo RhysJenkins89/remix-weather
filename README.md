@@ -16,6 +16,7 @@ The classic weather app built with the Remix framework. There will be a lot of G
 ## Nice to have
 
 * A clear all button for the cities
+* Fade in/out the error messages
 
 ## Notes 
 
