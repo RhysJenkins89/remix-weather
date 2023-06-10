@@ -1,6 +1,9 @@
 import { Link, useNavigate } from "@remix-run/react";
 import { useState } from "react";
 import Button from '@mui/material/Button';
+import { Input } from '@mui/material';
+import Typography from '@mui/material/Typography';
+
 
 function Login() {
     const [username, setUsername] = useState('')
@@ -22,10 +25,12 @@ function Login() {
 
     return (
         <div>
-            <h1>This is the login page.</h1>
+            <Typography variant='h1' component="h1">
+                <h1>This is the login page.</h1>
+            </Typography>
             <form onSubmit={handleSubmit}>
                 <div style={{marginBottom: '20px'}}>
-                    <input 
+                    <Input 
                         onChange={(event) => setUsername(event.target.value)} 
                         value={username} 
                         type='text' 
@@ -33,14 +38,14 @@ function Login() {
                     />
                 </div>
                 <div style={{marginBottom: '20px'}}>
-                    <input 
+                    <Input 
                         onChange={(event) => setPassword(event.target.value)} 
                         value={password} 
                         type='password' 
                         placeholder="password" 
                     />
                 </div>
-                <button type="submit">Log in</button>
+                <Button variant="outlined" type="submit">Log in</Button>
             </form>
         </div>
     )
