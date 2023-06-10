@@ -4,15 +4,15 @@ The classic weather app built with the Remix framework. There will be a lot of G
 
 ## To do
 
-* Set the max number of cities to five
 * Allow the user to delete cities
+    * Add a better method for delete functionality
 * Add a stylesheet
 * Bring in the MUI framework
     * Sort fonts
     * Sort icons 
 * Fetch weather data from somewhere somehow
 * Fix the click boundary of the city items
-* Solve the duplicate city issue
+* Clear the search ui on click
 
 ## Notes 
 

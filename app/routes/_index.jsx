@@ -64,29 +64,40 @@ export default function Index() {
 		const city = event.currentTarget.getAttribute('data-city')
 		console.log('cities:', cities)
 
-		// const cityInDatabase = await db.city.findUnique({where: {name: city}})
-		// console.log('city in db:', cityInDatabase)
+		// If the cities array is empty, do not check for duplicates
+		// If the city array contains one or more items, check for duplicates
 
-		// Check if the city already exists in the database
-		// if () {
+		if (cities.length === 5) return
 
-		// }
+		if (cities.length === 0) {
+			// As we're re-using this code, put it in a function
+			let formData = new FormData();
+			formData.append("name", city);
+			submit(formData, {
+				method: "post",
+			});
+		}
 
-		cities.forEach((cityObj) => {
-			if (city === cityObj.name) {
-				// return from handleClick function
-				// Show error message
-				return
-			} else {
+		if (cities.length > 0) {
+			// This definitely isn't the right way to do this.
+			let cityAdded
+			cities.forEach((cityObj) => {
+				if (city === cityObj.name) {
+					console.log('city already added')
+					cityAdded = true
+					// Add error text on the ui
+					return
+				}
+			})
+			if (!cityAdded) {
+				let formData = new FormData();
+				formData.append("name", city);
+				submit(formData, {
+					method: "post",
+				});
+			} 
+		}
 
-			}
-		})
-
-		let formData = new FormData();
-		formData.append("name", city);
-		submit(formData, {
-			method: "post",
-		});
 	}
 
 	// Delete the city from the db
