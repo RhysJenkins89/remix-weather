@@ -12,7 +12,10 @@ The classic weather app built with the Remix framework. There will be a lot of G
     * Sort icons 
 * Fetch weather data from somewhere somehow
 * Fix the click boundary of the city items
-* Clear the search ui on click
+
+## Nice to have
+
+* A clear all button for the cities
 
 ## Notes 
 

@@ -27,7 +27,7 @@ export const action = async ({ request }) => {
 
 	if (form.get('method') === 'delete') {
 		await db.city.deleteMany({ where: { name: city } })
-		// the .deleteMany meethod works, but of course we only want to delete one item.
+		// the .deleteMany method works, but of course we only want to delete one item.
 	} else {
 		await db.city.create({ data: { name: city } });
 	}
@@ -42,11 +42,15 @@ export const action = async ({ request }) => {
 export default function Index() {
 	const [text, setText] = useState('')
 	const [userSearch, setUserSearch] = useState('')
+	const [cityLimit, setCityLimit] = useState(false)
+	const [cityAlreadyAdded, setCityAlreadyAdded] = useState(false)
 
 	// Standard React client-side data fetching
 	const handleChange = async (event) => {
 		setText(event.target.value)
 		if (event.target.value.length >= 1) {
+			setCityLimit(false)
+			setCityAlreadyAdded(false)
 			const response = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${event.target.value}&count=10`)
 			const resData = await response.json()
 			setUserSearch(resData)
@@ -67,7 +71,13 @@ export default function Index() {
 		// If the cities array is empty, do not check for duplicates
 		// If the city array contains one or more items, check for duplicates
 
-		if (cities.length === 5) return
+		if (cities.length === 5) {
+			setText('')
+			setUserSearch('')
+			setCityLimit(true)
+			return
+			// Show an error message here
+		}
 
 		if (cities.length === 0) {
 			// As we're re-using this code, put it in a function
@@ -84,6 +94,7 @@ export default function Index() {
 			cities.forEach((cityObj) => {
 				if (city === cityObj.name) {
 					console.log('city already added')
+					setCityAlreadyAdded(true)
 					cityAdded = true
 					// Add error text on the ui
 					return
@@ -95,8 +106,10 @@ export default function Index() {
 				submit(formData, {
 					method: "post",
 				});
-			} 
+			}
 		}
+		setText('')
+		setUserSearch('')
 
 	}
 
@@ -123,6 +136,12 @@ export default function Index() {
 			</div>
 			<input value={text} onChange={handleChange} placeholder='Search' />
 			{
+				cityAlreadyAdded ?
+					<p>You've already added that city.</p>
+					:
+					null
+			}
+			{
 				userSearch.results ?
 					userSearch.results.map((item, index) => {
 						return (
@@ -133,6 +152,12 @@ export default function Index() {
 					null
 			}
 			<h3>The below items come from the db</h3>
+			{
+				cityLimit ? 
+					<p>You may add no more than five cities.</p>
+					:
+					null
+			}
 			{
 				cities.length > 0 ?
 					cities.map((city) => {
