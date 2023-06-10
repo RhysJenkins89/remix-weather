@@ -4,7 +4,6 @@ The classic weather app built with the Remix framework. There will be a lot of G
 
 ## To do
 
-* Save the user's city choices
 * Set the max number of cities to five
 * Allow the user to delete cities
 * Add a stylesheet
@@ -13,8 +12,13 @@ The classic weather app built with the Remix framework. There will be a lot of G
     * Sort icons 
 * Fetch weather data from somewhere somehow
 * Fix the click boundary of the city items
+* Solve the duplicate city issue
 
 ## Notes 
 
-This has a been quite a tricky development experience so far. At the moment, I'm thinking like a React developer, with all of my data-fetching happening on the client-side. Remix doesn't quite work like this. 
+This has a been quite a tricky development experience so far. At the moment, I'm thinking like a React developer, with all of my data-fetching happening on the client-side. Remix doesn't quite work like this.
+
+Talk about the useSubmit error that Max helped with. 
+
+At the moment I'm getting a bug with the delete funcitonality. Prisma expects that the data I pass into the method is unique, but because the db can accept multiple items that have the same name, the name field doesn't quality as a unique field.
 

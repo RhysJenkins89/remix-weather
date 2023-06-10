@@ -21,18 +21,29 @@ export const loader = async () => {
 };
 
 // Update the db with the user's input
-export const action = async ({request}) => {
+export const action = async ({ request }) => {
 	const form = await request.formData();
-    const city = form.get('name');
-	await db.city.create({ data: {name: city} });
+	const city = form.get('name');
+
+	if (form.get('method') === 'delete') {
+		await db.city.deleteMany({ where: { name: city } })
+		// the .deleteMany meethod works, but of course we only want to delete one item.
+	} else {
+		await db.city.create({ data: { name: city } });
+	}
+
 	return null
 }
 
+// In a handle click, use the useSubmit method with the delete method
+// I think the useSubmit will call the action funciton outside of the return 
+// We'll need a way to differentiate the delete method from the add method
+
 export default function Index() {
-	// Standard React data fetching
 	const [text, setText] = useState('')
 	const [userSearch, setUserSearch] = useState('')
 
+	// Standard React client-side data fetching
 	const handleChange = async (event) => {
 		setText(event.target.value)
 		if (event.target.value.length >= 1) {
@@ -47,14 +58,47 @@ export default function Index() {
 
 	const { cities } = useLoaderData();
 	const submit = useSubmit()
-	
+
 	// Call the submit function here
 	const handleClick = async (event) => {
 		const city = event.currentTarget.getAttribute('data-city')
+		console.log('cities:', cities)
+
+		// const cityInDatabase = await db.city.findUnique({where: {name: city}})
+		// console.log('city in db:', cityInDatabase)
+
+		// Check if the city already exists in the database
+		// if () {
+
+		// }
+
+		cities.forEach((cityObj) => {
+			if (city === cityObj.name) {
+				// return from handleClick function
+				// Show error message
+				return
+			} else {
+
+			}
+		})
+
 		let formData = new FormData();
 		formData.append("name", city);
 		submit(formData, {
 			method: "post",
+		});
+	}
+
+	// Delete the city from the db
+	const handleDelete = async (event) => {
+		console.log(`Delete this city: ${event.currentTarget.getAttribute('data-city')}`)
+		const city = event.currentTarget.getAttribute('data-city')
+		const methodType = event.currentTarget.getAttribute('data-method')
+		let formData = new FormData();
+		formData.append("name", city);
+		formData.append("method", methodType);
+		submit(formData, {
+			method: "delete",
 		});
 	}
 
@@ -79,13 +123,17 @@ export default function Index() {
 			}
 			<h3>The below items come from the db</h3>
 			{
-				cities.map((city) => {
-					return (
-						<div key={city.id}>
-							<p>{city.name}</p>
-						</div>
-					)
-				})
+				cities.length > 0 ?
+					cities.map((city) => {
+						return (
+							<div key={city.id}>
+								<p>{city.name}</p>
+								<p onClick={handleDelete} data-city={city.name} data-method='delete'>Delete {city.name}</p>
+							</div>
+						)
+					})
+					:
+					<p>Search for a city!</p>
 			}
 		</div>
 	);
