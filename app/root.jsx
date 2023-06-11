@@ -1,5 +1,7 @@
 import { createTheme, ThemeProvider } from "@mui/material";
 import { cssBundleHref } from "@remix-run/css-bundle";
+import CssBaseline from '@mui/material/CssBaseline';
+
 
 import {
 	Links,
@@ -16,12 +18,7 @@ export const links = () => [
 
 const theme = createTheme({
 	palette: {
-		primary: {
-			main: '#000000'
-		},
-		secondary: {
-			main: '#F5F5F5'
-		}
+		mode: 'dark',
 	}	
 })
 
@@ -40,6 +37,7 @@ export default function App() {
 			</head>
 			<body>
 				<ThemeProvider theme={theme}>
+					<CssBaseline />
 					<Outlet />
 					<ScrollRestoration />
 					<Scripts />

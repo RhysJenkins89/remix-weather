@@ -1,8 +1,8 @@
 import { Link, useNavigate } from "@remix-run/react";
 import { useState } from "react";
-import Button from '@mui/material/Button';
-import { Input } from '@mui/material';
-import Typography from '@mui/material/Typography'; // The typography component isn't playing ball at the moment. I have time, I'll bug fix when the app is finished. 
+
+// MUI components
+import { Container, Button, Input, Typography, Box, FormControl } from '@mui/material';
 
 
 function Login() {
@@ -23,28 +23,28 @@ function Login() {
     }
 
     return (
-        <div>
-            <h1>This is the login page.</h1>
-            <form onSubmit={handleSubmit}>
-                <div style={{marginBottom: '20px'}}>
-                    <Input 
-                        onChange={(event) => setUsername(event.target.value)} 
-                        value={username} 
-                        type='text' 
-                        placeholder="username" 
+        <Container>
+            <Typography variant="h2" sx={{ my: 4, textAlign: 'center' }}>Remixing the Weather</Typography>
+            <Box sx={{ width: 1, display: 'flex', justifyContent: 'center' }}>
+                <FormControl onSubmit={handleSubmit} sx={{ width: 250 }}>
+                    <Input
+                        sx={{ mb: 2 }}
+                        onChange={(event) => setUsername(event.target.value)}
+                        value={username}
+                        type='text'
+                        placeholder="username"
                     />
-                </div>
-                <div style={{marginBottom: '20px'}}>
-                    <Input 
-                        onChange={(event) => setPassword(event.target.value)} 
-                        value={password} 
-                        type='password' 
-                        placeholder="password" 
+                    <Input
+                        sx={{ mb: 6 }}
+                        onChange={(event) => setPassword(event.target.value)}
+                        value={password}
+                        type='password'
+                        placeholder="password"
                     />
-                </div>
-                <Button variant="outlined" type="submit">Log in</Button>
-            </form>
-        </div>
+                    <Button variant="outlined" type="submit">Log in</Button>
+                </FormControl>
+            </Box>
+        </Container>
     )
 }
 

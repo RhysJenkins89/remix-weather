@@ -132,7 +132,7 @@ export default function Index() {
 	}
 
 	return (
-		<Container>
+		<Container> 
 			<Typography variant="h3" sx={{ my: 4, textAlign: 'center' }}>
 				Welcome to Remix!
 			</Typography>
