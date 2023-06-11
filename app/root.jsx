@@ -1,3 +1,4 @@
+import { createTheme, ThemeProvider } from "@mui/material";
 import { cssBundleHref } from "@remix-run/css-bundle";
 
 import {
@@ -13,6 +14,17 @@ export const links = () => [
 	...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref }] : []),
 ];
 
+const theme = createTheme({
+	palette: {
+		primary: {
+			main: '#000000'
+		},
+		secondary: {
+			main: '#F5F5F5'
+		}
+	}	
+})
+
 export default function App() {
 	return (
 		<html lang="en">
@@ -27,10 +39,12 @@ export default function App() {
 				<Links />
 			</head>
 			<body>
-				<Outlet />
-				<ScrollRestoration />
-				<Scripts />
-				<LiveReload />
+				<ThemeProvider theme={theme}>
+					<Outlet />
+					<ScrollRestoration />
+					<Scripts />
+					<LiveReload />
+				</ThemeProvider>
 			</body>
 		</html>
 	);

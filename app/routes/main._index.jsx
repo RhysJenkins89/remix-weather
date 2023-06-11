@@ -4,7 +4,16 @@ import { useLoaderData, Link, useSubmit } from "@remix-run/react";
 import { useState } from 'react'
 
 // MUI components
-import Button from '@mui/material/Button';
+import {
+	Container,
+	Typography,
+	Input,
+	Button,
+	Box
+} from "@mui/material";
+
+// React components
+import WeatherCard from "../components/WeatherCard";
 
 export const meta = () => {
 	return [
@@ -31,11 +40,13 @@ export const action = async ({ request }) => {
 		await db.city.deleteMany({ where: { name: city } })
 		// the .deleteMany method works, but of course we only want to delete one item.
 	} else {
-		await db.city.create({ data: { 
-			name: city,
-			lat,
-			long, 
-		} });
+		await db.city.create({
+			data: {
+				name: city,
+				lat,
+				long,
+			}
+		});
 	}
 
 	return null
@@ -81,11 +92,6 @@ export default function Index() {
 		const latitude = event.currentTarget.getAttribute('data-lat')
 		const longitude = event.currentTarget.getAttribute('data-long')
 
-		
-
-		// If the cities array is empty, do not check for duplicates
-		// If the city array contains one or more items, check for duplicates
-
 		if (cities.length === 5) {
 			setText('')
 			setUserSearch('')
@@ -94,14 +100,6 @@ export default function Index() {
 		}
 
 		if (cities.length === 0) {
-			// As we're re-using this code, put it in a function
-			// let formData = new FormData();
-			// formData.append("name", city);
-			// formData.append("lat", latitude);
-			// formData.append("long", longitude);
-			// submit(formData, {
-			// 	method: "post",
-			// });
 			addCities(city, latitude, longitude)
 		}
 
@@ -116,25 +114,15 @@ export default function Index() {
 				}
 			})
 			if (!cityAdded) {
-				// let formData = new FormData();
-				// formData.append("name", city);
-				// formData.append("lat", latitude);
-				// formData.append("long", longitude);
-				// submit(formData, {
-				// 	method: "post",
-				// });
 				addCities(city, latitude, longitude)
 			}
 		}
 		setText('')
 		setUserSearch('')
-
 	}
 
 	// Delete the city from the db
-	const handleDelete = async (event) => {
-		const city = event.currentTarget.getAttribute('data-city')
-		const methodType = event.currentTarget.getAttribute('data-method')
+	const handleDelete = async (city, methodType) => {
 		let formData = new FormData();
 		formData.append("name", city);
 		formData.append("method", methodType);
@@ -143,22 +131,20 @@ export default function Index() {
 		});
 	}
 
-	const showWeather = () => {
-		
-	}
-
 	return (
-		<div>
-			<h1>Welcome to Remix!</h1>
+		<Container>
+			<Typography variant="h3" sx={{ my: 4, textAlign: 'center' }}>
+				Welcome to Remix!
+			</Typography>
 			<div>
 				<Link to='/'>
 					<Button variant="contained">Login page</Button>
 				</Link>
 			</div>
-			<input value={text} onChange={handleChange} placeholder='Search' />
+			<Input value={text} onChange={handleChange} placeholder='Search' />
 			{
 				cityAlreadyAdded ?
-					<p>You've already added that city.</p>
+					<Typography>You've already added that city.</Typography>
 					:
 					null
 			}
@@ -166,42 +152,50 @@ export default function Index() {
 				userSearch.results ?
 					userSearch.results.map((item, index) => {
 						return (
-							<p 
-								key={index} 
-								onClick={handleClick} 
+							<Typography sx={{ p: 1 }}
+								key={index}
+								onClick={handleClick}
 								data-city={item.name}
 								data-lat={item.latitude}
 								data-long={item.longitude}
 							>
 								{item.name}
-							</p>
+							</Typography>
+							// Have these items appear on top of the cards?
 						)
 					})
 					:
 					null
 			}
-			<h3>The below items come from the db</h3>
 			{
-				cityLimit ? 
-					<p>You may add no more than five cities.</p>
+				cityLimit ?
+					<Typography>You may add no more than five cities.</Typography>
 					:
 					null
 			}
-			{
-				cities.length > 0 ?
+			<Box 
+				sx={{ 
+					display: 'flex', 
+					flexDirection: {xs: 'column', md: 'row'},
+					justifyContent: 'space-between',
+					gap: 4 
+				}}
+			>
+				{cities.length > 0 ?
 					cities.map((city) => {
 						return (
-							<div key={city.id}>
-								<p>{city.lat}</p>
-								<p>{city.long}</p>
-								<p onClick={showWeather}>Show the weather in {city.name}</p>
-								<p onClick={handleDelete} data-city={city.name} data-method='delete'>Delete {city.name}</p>
-							</div>
+							<WeatherCard
+								key={city.id}
+								city={city.name}
+								lat={city.lat}
+								long={city.long}
+								deleteItem={handleDelete}
+							/>
 						)
 					})
 					:
-					<p>Search for a city!</p>
-			}
-		</div>
+					<Typography>Search for a city!</Typography>}
+			</Box>
+		</Container>
 	);
 }
