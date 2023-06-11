@@ -48,7 +48,6 @@ export const action = async ({ request }) => {
 			}
 		});
 	}
-
 	return null
 }
 
@@ -86,7 +85,6 @@ export default function Index() {
 		});
 	}
 
-	// Call the submit function here
 	const handleClick = async (event) => {
 		const city = event.currentTarget.getAttribute('data-city')
 		const latitude = event.currentTarget.getAttribute('data-lat')
@@ -104,7 +102,6 @@ export default function Index() {
 		}
 
 		if (cities.length > 0) {
-			// There's probably a shorter way to write this
 			let cityAdded
 			cities.forEach((cityObj) => {
 				if (city === cityObj.name) {
@@ -121,7 +118,6 @@ export default function Index() {
 		setUserSearch('')
 	}
 
-	// Delete the city from the db
 	const handleDelete = async (city, methodType) => {
 		let formData = new FormData();
 		formData.append("name", city);
@@ -132,69 +128,66 @@ export default function Index() {
 	}
 
 	return (
-		<Container> 
-			<Typography variant="h3" sx={{ my: 4, textAlign: 'center' }}>
-				Welcome to Remix!
+		<Container>
+			<Typography variant="h2" sx={{ my: 4, textAlign: 'center' }}>
+				Welcome, ipgautomotive
 			</Typography>
-			<div>
-				<Link to='/'>
-					<Button variant="contained">Login page</Button>
-				</Link>
-			</div>
-			<Input value={text} onChange={handleChange} placeholder='Search' />
-			{
-				cityAlreadyAdded ?
-					<Typography>You've already added that city.</Typography>
+			<Typography variant="h4" sx={{ mt: 8, textAlign: 'center' }}>
+				Search for a city.
+			</Typography>
+			<Box style={{position: 'relative'}} sx={{ my: 10, mx: 'auto', width: 250, display: 'flex', flexDirection: 'column' }}>
+				<Input value={text} onChange={handleChange} placeholder='Search' />
+				{cityAlreadyAdded ?
+					<Typography style={{position: 'absolute', top: '35px'}} sx={{ mt: 2, color: 'error.main' }} >You've already added that city.</Typography>
 					:
 					null
-			}
-			{
-				userSearch.results ?
-					userSearch.results.map((item, index) => {
-						return (
-							<Typography sx={{ p: 1 }}
-								key={index}
-								onClick={handleClick}
-								data-city={item.name}
-								data-lat={item.latitude}
-								data-long={item.longitude}
-							>
-								{item.name}
-							</Typography>
-							// Have these items appear on top of the cards?
-						)
-					})
+				}
+				{userSearch.results ? (
+					<Box style={{position: 'absolute', top: '50px'}} sx={{ backgroundColor: 'background.default'}}> 
+						{userSearch.results.map((item, index) => {
+							return (
+								<Typography 
+									sx={{ p: 1, width: 250, cursor: 'pointer' }}
+									key={index}
+									onClick={handleClick}
+									data-city={item.name}
+									data-lat={item.latitude}
+									data-long={item.longitude}
+								>
+									{item.name}
+								</Typography>
+							)
+						})}
+					</Box>
+					)
 					:
 					null
-			}
-			{
-				cityLimit ?
-					<Typography>You may add no more than five cities.</Typography>
+				}
+				{cityLimit ?
+					<Typography style={{position: 'absolute', top: '35px'}} sx={{ mt: 2, color: 'error.main' }} >You may add no more than five cities.</Typography>
 					:
 					null
-			}
-			<Box 
-				sx={{ 
-					display: 'flex', 
-					flexDirection: {xs: 'column', md: 'row'},
-					justifyContent: 'space-between',
-					gap: 4 
+				}
+			</Box>
+			<Box
+				sx={{
+					display: 'flex',
+					flexDirection: { xs: 'column', md: 'row' },
+					justifyContent: 'flex-start',
+					gap: 4
 				}}
 			>
-				{cities.length > 0 ?
-					cities.map((city) => {
-						return (
-							<WeatherCard
-								key={city.id}
-								city={city.name}
-								lat={city.lat}
-								long={city.long}
-								deleteItem={handleDelete}
-							/>
-						)
-					})
-					:
-					<Typography>Search for a city!</Typography>}
+				{cities.map((city) => {
+					return (
+						<WeatherCard
+							key={city.id}
+							city={city.name}
+							lat={city.lat}
+							long={city.long}
+							deleteItem={handleDelete}
+						/>
+					)
+				})}
 			</Box>
 		</Container>
 	);
