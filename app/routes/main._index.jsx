@@ -24,20 +24,22 @@ export const loader = async () => {
 export const action = async ({ request }) => {
 	const form = await request.formData();
 	const city = form.get('name');
+	const lat = form.get('lat');
+	const long = form.get('long');
 
 	if (form.get('method') === 'delete') {
 		await db.city.deleteMany({ where: { name: city } })
 		// the .deleteMany method works, but of course we only want to delete one item.
 	} else {
-		await db.city.create({ data: { name: city } });
+		await db.city.create({ data: { 
+			name: city,
+			lat,
+			long, 
+		} });
 	}
 
 	return null
 }
-
-// In a handle click, use the useSubmit method with the delete method
-// I think the useSubmit will call the action funciton outside of the return 
-// We'll need a way to differentiate the delete method from the add method
 
 export default function Index() {
 	const [text, setText] = useState('')
@@ -63,10 +65,23 @@ export default function Index() {
 	const { cities } = useLoaderData();
 	const submit = useSubmit()
 
+	const addCities = (city, lat, long) => {
+		let formData = new FormData();
+		formData.append("name", city);
+		formData.append("lat", lat);
+		formData.append("long", long);
+		submit(formData, {
+			method: "post",
+		});
+	}
+
 	// Call the submit function here
 	const handleClick = async (event) => {
 		const city = event.currentTarget.getAttribute('data-city')
-		console.log('cities:', cities)
+		const latitude = event.currentTarget.getAttribute('data-lat')
+		const longitude = event.currentTarget.getAttribute('data-long')
+
+		
 
 		// If the cities array is empty, do not check for duplicates
 		// If the city array contains one or more items, check for duplicates
@@ -80,11 +95,14 @@ export default function Index() {
 
 		if (cities.length === 0) {
 			// As we're re-using this code, put it in a function
-			let formData = new FormData();
-			formData.append("name", city);
-			submit(formData, {
-				method: "post",
-			});
+			// let formData = new FormData();
+			// formData.append("name", city);
+			// formData.append("lat", latitude);
+			// formData.append("long", longitude);
+			// submit(formData, {
+			// 	method: "post",
+			// });
+			addCities(city, latitude, longitude)
 		}
 
 		if (cities.length > 0) {
@@ -92,18 +110,20 @@ export default function Index() {
 			let cityAdded
 			cities.forEach((cityObj) => {
 				if (city === cityObj.name) {
-					console.log('city already added')
 					setCityAlreadyAdded(true)
 					cityAdded = true
 					return
 				}
 			})
 			if (!cityAdded) {
-				let formData = new FormData();
-				formData.append("name", city);
-				submit(formData, {
-					method: "post",
-				});
+				// let formData = new FormData();
+				// formData.append("name", city);
+				// formData.append("lat", latitude);
+				// formData.append("long", longitude);
+				// submit(formData, {
+				// 	method: "post",
+				// });
+				addCities(city, latitude, longitude)
 			}
 		}
 		setText('')
@@ -121,6 +141,10 @@ export default function Index() {
 		submit(formData, {
 			method: "delete",
 		});
+	}
+
+	const showWeather = () => {
+		
 	}
 
 	return (
@@ -142,7 +166,15 @@ export default function Index() {
 				userSearch.results ?
 					userSearch.results.map((item, index) => {
 						return (
-							<p key={index} onClick={handleClick} data-city={item.name}>{item.name}</p>
+							<p 
+								key={index} 
+								onClick={handleClick} 
+								data-city={item.name}
+								data-lat={item.latitude}
+								data-long={item.longitude}
+							>
+								{item.name}
+							</p>
 						)
 					})
 					:
@@ -160,7 +192,9 @@ export default function Index() {
 					cities.map((city) => {
 						return (
 							<div key={city.id}>
-								<p>{city.name}</p>
+								<p>{city.lat}</p>
+								<p>{city.long}</p>
+								<p onClick={showWeather}>Show the weather in {city.name}</p>
 								<p onClick={handleDelete} data-city={city.name} data-method='delete'>Delete {city.name}</p>
 							</div>
 						)

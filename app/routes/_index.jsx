@@ -2,7 +2,7 @@ import { Link, useNavigate } from "@remix-run/react";
 import { useState } from "react";
 import Button from '@mui/material/Button';
 import { Input } from '@mui/material';
-import Typography from '@mui/material/Typography';
+import Typography from '@mui/material/Typography'; // The typography component isn't playing ball at the moment. I have time, I'll bug fix when the app is finished. 
 
 
 function Login() {
@@ -18,16 +18,13 @@ function Login() {
             username === 'ipgautomotive' &&
             password === 'carmaker'
         ) {
-            console.log('it\'s working')
             navigate('/main')
         }
     }
 
     return (
         <div>
-            <Typography variant='h1' component="h1">
-                <h1>This is the login page.</h1>
-            </Typography>
+            <h1>This is the login page.</h1>
             <form onSubmit={handleSubmit}>
                 <div style={{marginBottom: '20px'}}>
                     <Input 

@@ -14,7 +14,9 @@ seed();
 function getCities() {
     return [
         {
-            name: 'Birmingham'
+            name: 'Birmingham',
+            lat: '52.4862',  
+            long: '1.8904'
         }
     ]
 }

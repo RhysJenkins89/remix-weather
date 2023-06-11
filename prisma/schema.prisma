@@ -16,4 +16,6 @@ model City {
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
     name	  String
+    lat 	  String
+    long	  String
 }
