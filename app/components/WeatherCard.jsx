@@ -6,13 +6,13 @@ import { IoThunderstormOutline } from 'react-icons/io5'
 // MUI components
 import {
     Typography,
-    Input,
     Button,
     Paper,
     Box
 } from "@mui/material";
 
 function WeatherCard({ city, lat, long, deleteItem }) {
+    const [isLoading, setIsLoading] = useState(true)
     const [currentWeather, setCurrentWeather] = useState(null)
 
     useEffect(() => {
@@ -23,6 +23,7 @@ function WeatherCard({ city, lat, long, deleteItem }) {
         const response = await fetch(`http://api.weatherapi.com/v1/current.json?key=d148431d019249b1b9f63254231206&q=${latitude},${longitude}&aqi=no`)
         const currentData = await response.json()
         setCurrentWeather(currentData)
+        setIsLoading(false)
     }
 
     const getWeathericon = (weatherCode, size) => {
@@ -48,7 +49,11 @@ function WeatherCard({ city, lat, long, deleteItem }) {
         <Paper elevation={3} sx={{ width: 200, height: 'auto', minHeight: 325 }}>
             <Box sx={{ m: 2, display: 'flex', flexDirection: 'column', height: 1 }}>
                 <Typography variant='h5' sx={{ mb: 1 }}>{city}</Typography>
-                {currentWeather ?
+                {isLoading ?
+                    <Typography>
+                        Fetching weather data.
+                    </Typography>
+                    :
                     <Box sx={{ display: 'flex', flexDirection: 'column', height: 200 }}>
                         <Box sx={{ my: 'auto' }}>
                             {getWeathericon(currentWeather.current.condition.code, 50)}
@@ -60,7 +65,7 @@ function WeatherCard({ city, lat, long, deleteItem }) {
                         <Typography>Precipitation: {currentWeather.current.precip_mm}mm</Typography>
                         <Typography>Humidity: {currentWeather.current.humidity}%</Typography>
                     </Box>
-                    : null}
+                }
                 <Button
                     sx={{ mt: 2 }}
                     onClick={() => deleteItem(city, 'delete')}

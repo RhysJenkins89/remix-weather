@@ -1,6 +1,6 @@
 import { db } from "~/utils/db.server";
-import { json, redirect } from "@remix-run/node";
-import { useLoaderData, Link, useSubmit } from "@remix-run/react";
+import { json } from "@remix-run/node";
+import { useLoaderData, useSubmit } from "@remix-run/react";
 import { useState } from 'react'
 
 // MUI components
@@ -8,7 +8,6 @@ import {
 	Container,
 	Typography,
 	Input,
-	Button,
 	Box
 } from "@mui/material";
 
@@ -17,8 +16,8 @@ import WeatherCard from "../components/WeatherCard";
 
 export const meta = () => {
 	return [
-		{ title: "New Remix App" },
-		{ name: "description", content: "Welcome to Remix!" },
+		{ title: "Remix Weather App" },
+		{ name: "description", content: "The classic weather app built with the Remix framework." },
 	];
 };
 
@@ -38,7 +37,6 @@ export const action = async ({ request }) => {
 
 	if (form.get('method') === 'delete') {
 		await db.city.deleteMany({ where: { name: city } })
-		// the .deleteMany method works, but of course we only want to delete one item.
 	} else {
 		await db.city.create({
 			data: {
