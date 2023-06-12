@@ -45,7 +45,7 @@ function WeatherCard({ city, lat, long, deleteItem }) {
     }
 
     return (
-        <Paper elevation={3} sx={{ width: 200, height: 'auto' }}>
+        <Paper elevation={3} sx={{ width: 200, height: 'auto', minHeight: 325 }}>
             <Box sx={{ m: 2, display: 'flex', flexDirection: 'column', height: 1 }}>
                 <Typography variant='h5' sx={{ mb: 1 }}>{city}</Typography>
                 {currentWeather ?

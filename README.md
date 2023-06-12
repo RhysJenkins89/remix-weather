@@ -4,8 +4,6 @@ The classic weather app built with the Remix framework.
 
 ## To do
 
-
-
 ## Nice to have
 
 * A clear all button for the cities
@@ -19,10 +17,14 @@ This has a been quite a tricky development experience so far. At the moment, I'm
 
 Talk about the useSubmit error that Max helped with. 
 
-At the moment I'm getting a bug with the delete funcitonality. Prisma expects that the data I pass into the method is unique, but because the db can accept multiple items that have the same name, the name field doesn't quality as a unique field.
+At the moment I'm getting a bug with the delete funcitonality. Prisma expects that the data I pass into the method be unique, but because the db can accept multiple items that have the same name, the name field doesn't qualify as a unique field.
+
+Talk about TypeScript
 
 ## Known bugs
 
 At the moment, I save the city in the db using the city name. However, many cities around the world share the same name, which means if I wanted to add both Birmingham in the UK and Birmingha in Alabama, I wouldn't be able to. If I were to spend more time on this app, I would certainly fix this bug, but because I have limited time, I'll have to leave it as it is for the moment.   
 
 City card when data fetching height
+
+The welcome message on the city search page is hard-coded. While this isn't the worst thing in the world and doesn't really qualify as a bug per se, I would've liked to have gotten logged-in user data in order to render the correct username. 
