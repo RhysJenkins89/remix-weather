@@ -133,15 +133,15 @@ export default function Index() {
 			<Typography variant="h4" sx={{ mt: 8, textAlign: 'center' }}>
 				Search for a city.
 			</Typography>
-			<Box style={{position: 'relative'}} sx={{ my: 10, mx: 'auto', width: 250, display: 'flex', flexDirection: 'column' }}>
+			<Box sx={{ position: 'relative', my: 10, mx: 'auto', width: 250, display: 'flex', flexDirection: 'column' }}>
 				<Input value={text} onChange={handleChange} placeholder='Search' />
 				{cityAlreadyAdded ?
-					<Typography style={{position: 'absolute', top: '35px'}} sx={{ mt: 2, color: 'error.main' }} >You've already added that city.</Typography>
+					<Typography sx={{ position: 'absolute', top: '35px', mt: 2, color: 'error.main' }} >You've already added that city.</Typography>
 					:
 					null
 				}
 				{userSearch.results ? (
-					<Box style={{position: 'absolute', top: '50px'}} sx={{ backgroundColor: 'background.default', zIndex: 100}}> 
+					<Box sx={{ position: 'absolute', top: '50px', backgroundColor: 'background.default', zIndex: 100}}> 
 						{userSearch.results.map((item, index) => {
 							return (
 								<Typography 
@@ -162,7 +162,7 @@ export default function Index() {
 					null
 				}
 				{cityLimit ?
-					<Typography style={{position: 'absolute', top: '35px'}} sx={{ mt: 2, color: 'error.main' }} >You may add no more than five cities.</Typography>
+					<Typography sx={{ position: 'absolute', top: '35px', mt: 2, color: 'error.main' }} >You may add no more than five cities.</Typography>
 					:
 					null
 				}
