@@ -50,7 +50,7 @@ function Login() {
                             onChange={(event) => handleUserInput(event)}
                             value={username}
                             type='text'
-                            placeholder="username"
+                            placeholder="Username"
                         />
                     </FormControl>
                     <FormControl>
@@ -59,7 +59,7 @@ function Login() {
                             onChange={(event) => setPassword(event.target.value)}
                             value={password}
                             type='password'
-                            placeholder="password"
+                            placeholder="Password"
                         />
                     </FormControl>
                     <Button variant="outlined" type="submit">Log in</Button>
