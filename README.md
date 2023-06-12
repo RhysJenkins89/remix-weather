@@ -1,22 +1,17 @@
 # Remixing the Weather
 
-The classic weather app built with the Remix framework. There will be a lot of Googling!
+The classic weather app built with the Remix framework.
 
 ## To do
 
-* Add a stylesheet
-* Bring in the MUI framework
-    * Sort fonts
-    * Sort icons 
-* Fetch weather data from somewhere somehow
-* Fix the click boundary of the city items
-* If the user navigates to main without logging in, redirect to login
-* Look into the delete method
+
 
 ## Nice to have
 
 * A clear all button for the cities
 * Fade in/out the error messages
+* If the user navigates to main without logging in, redirect to login
+* Add the correct delete method
 
 ## Notes 
 
@@ -29,3 +24,5 @@ At the moment I'm getting a bug with the delete funcitonality. Prisma expects th
 ## Known bugs
 
 At the moment, I save the city in the db using the city name. However, many cities around the world share the same name, which means if I wanted to add both Birmingham in the UK and Birmingha in Alabama, I wouldn't be able to. If I were to spend more time on this app, I would certainly fix this bug, but because I have limited time, I'll have to leave it as it is for the moment.   
+
+City card when data fetching height

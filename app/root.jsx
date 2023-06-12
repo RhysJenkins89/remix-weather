@@ -19,6 +19,13 @@ export const links = () => [
 const theme = createTheme({
 	palette: {
 		mode: 'dark',
+	},
+	typography: {
+		h2: {
+			'@media (max-width: 400px)': {
+				fontSize: '2.5rem',
+			},
+		}
 	}	
 })
 

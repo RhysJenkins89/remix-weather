@@ -143,7 +143,7 @@ export default function Index() {
 					null
 				}
 				{userSearch.results ? (
-					<Box style={{position: 'absolute', top: '50px'}} sx={{ backgroundColor: 'background.default'}}> 
+					<Box style={{position: 'absolute', top: '50px'}} sx={{ backgroundColor: 'background.default', zIndex: 100}}> 
 						{userSearch.results.map((item, index) => {
 							return (
 								<Typography 
@@ -173,8 +173,10 @@ export default function Index() {
 				sx={{
 					display: 'flex',
 					flexDirection: { xs: 'column', md: 'row' },
-					justifyContent: 'flex-start',
-					gap: 4
+					justifyContent: 'space-evenly',
+					alignItems: 'center',
+					gap: 4,
+					mb: 2
 				}}
 			>
 				{cities.map((city) => {
