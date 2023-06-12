@@ -2,6 +2,12 @@
 
 The classic weather app built with the Remix framework.
 
+## How to run
+
+1. Clone the repo
+2. Run ```npm i```
+3. Run ```npm run dev```
+
 ## To do
 
 ## Nice to have
@@ -33,7 +39,7 @@ I didn't use TypeScript on this project for a simple reason: I wasn't familiar w
 
 ## Known bugs
 
-At the moment, I save the city in the db using the city name. However, many cities around the world share the same name, which means if I wanted to add both Birmingham in the UK and Birmingha in Alabama, I wouldn't be able to. If I were to spend more time on this app, I would certainly fix this bug, but because I have limited time, I'll have to leave it as it is for the moment.   
+At the moment, I save the city in the db using the city name. However, many cities around the world share the same name, which means if I wanted to add both Birmingham in the UK and Birmingham in Alabama, I wouldn't be able to. If I were to spend more time on this app, I would certainly fix this bug, but because I have limited time, I'll have to leave it as it is for the moment.   
 
 The city cards don't have a loading state, which means that the weather data doesn't populate in the most elegant manner. While this isn't a big deal, I would've liked to have fixed it if I had more time. 
 
