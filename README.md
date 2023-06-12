@@ -42,7 +42,7 @@ As I mention above, time with the software is essential, but I would also argue 
 
 I've tried to keep the overall design of the app relatively simple, allowing the MUI components themselves to shine. Generally speaking, I prefer a dark mode over a light mode, and the default MUI dark mode palette is very tasteful.   
 
-### useSubmit error
+### ```useSubmit``` error
 
 One of the trickier bugs I came across early in development was pushing data to the database from an onClick handler. I spent a little too long trying to have the user submit a form instead of simply click a Typography element, which certainly wasn't the right approach. 
 
@@ -60,11 +60,11 @@ During the development process, I had a bug with the delete functionality. Prism
 
 I didn't use TypeScript on this project for a simple reason: I wasn't familiar with Remix or MUI, so I didn't want to add further complications to the project. I'm still learning TypeScript, and while I'm sure I could add some basic type-safety across the application, adding TypeScript throughout would've cost me more time than I had. With this in mind, I decided to stick with standard JavaScript .jsx files for this app.  
 
-### getWeatherIcon function
+### ```getWeatherIcon``` function
 
 This function is a bit of a monster, and there's undoubtedly a more elegant way to fetch icons based on a number, but it does the job for the time being.  
 
-### react-icons
+### ```react-icons```
 
 I chose to use icons from the ```react-icons``` package instead of the icons that the weather api fetches. This was purely a personal design choice. In my opinion, the bold, simple designs of the React icons complement the minimalistic theme of the app.  
 
