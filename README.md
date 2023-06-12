@@ -8,6 +8,13 @@ The classic weather app built with the Remix framework.
 2. Run ```npm i```
 3. Run ```npm run dev```
 
+Log in with the following details: 
+
+* Username: ipgautomotive
+* Password: carmaker
+
+To show the weather data for a city, simply type in the search box and click on one of the suggested locations.
+
 ## To do
 
 ## Nice to have
@@ -59,6 +66,10 @@ This function is a bit of a monster, and there's undoubtedly a more elegant way 
 
 I chose to use icons from the ```react-icons``` package instead of the icons that the weather api fetches. This was purely a personal design choice. In my opinion, the bold, simple designs of the React icons complement the minimalistic theme of the app.  
 
+### Accessibility
+
+Unfortunately, I did not build this app with accessibility in mind. While accessibility is an essential aspect of modern web development, time constraints dictacted that it be put to one side in this case. 
+
 ## Known bugs
 
 At the moment, I save the city in the db using the city name. However, many cities around the world share the same name, which means if I wanted to add both Birmingham in the UK and Birmingham in Alabama, I wouldn't be able to. If I were to spend more time on this app, I would certainly fix this bug, but because I have limited time, I'll have to leave it as it is for the moment.   
@@ -66,3 +77,5 @@ At the moment, I save the city in the db using the city name. However, many citi
 The welcome message on the city search page is hard-coded. While this isn't the worst thing in the world and doesn't really qualify as a bug per se, I would've liked to have gotten logged-in user data in order to render the correct username. 
 
 The way that the data populates the weather card ins't particularly elegant. Once I set the loading state to false in the useEffect, the data simply snaps in. A fade-in would be much easier on the eyes. As above, this issue isn't exactly a bug, but it is something that I would've liked to improve if I had more time. 
+
+The heading 'Known bugs' implies the existance of unknown bugs. While I have taken every effort to produce a bug-free app, there is of course a chance that bugs will exist. In fact, as with almost any application, it's almost certain that there are bugs. It's just a matter of finding them.   

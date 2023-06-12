@@ -152,7 +152,7 @@ export default function Index() {
 									data-lat={item.latitude}
 									data-long={item.longitude}
 								>
-									{item.name}
+									{item.name}, {item.country}
 								</Typography>
 							)
 						})}
