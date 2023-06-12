@@ -172,9 +172,10 @@ export default function Index() {
 			<Box
 				sx={{
 					display: 'flex',
-					flexDirection: { xs: 'column', md: 'row' },
+					flexDirection: { xs: 'column', sm: 'row' },
 					justifyContent: 'space-evenly',
 					alignItems: 'center',
+					flexWrap: 'wrap',
 					gap: 4,
 					mb: 2
 				}}
